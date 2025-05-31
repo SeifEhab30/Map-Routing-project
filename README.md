@@ -1,4 +1,4 @@
-Map routing project with visualization
+Route Finder & Visualization Tool
 Overview
 This C# WinForms application implements a shortest path finding algorithm over a weighted graph representing a map. It supports loading various map datasets, running shortest path queries between locations considering walking distance constraints, and visualizing the resulting routes on a graphical interface.
 
@@ -92,3 +92,4 @@ Interactive console menu with input validation.
 Graphical rendering scales points to window size and draws paths distinctly.
 
 Uses Windows Forms PictureBox and Graphics for smooth drawing.
+
