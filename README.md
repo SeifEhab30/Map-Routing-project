@@ -1,95 +1,123 @@
-Route Finder & Visualization Tool
-Overview
-This C# WinForms application implements a shortest path finding algorithm over a weighted graph representing a map. It supports loading various map datasets, running shortest path queries between locations considering walking distance constraints, and visualizing the resulting routes on a graphical interface.
+# Route Finder & Visualization Tool
 
-Features
-Graph Data Structure: Uses arrays and adjacency lists to represent vertices (nodes) and edges of a weighted undirected graph.
+## Overview
 
-Shortest Path Algorithm: Implements Dijkstra's algorithm with a priority queue for efficient shortest path calculation.
+This C# WinForms application implements a shortest path-finding algorithm over a weighted graph that represents a map. It supports loading various map datasets, running multiple shortest path queries between coordinates with walking distance constraints, and visualizing the resulting routes through an interactive graphical interface.
 
-Multi-Query Support: Handles multiple route queries with start and end coordinates, including walking distance constraints.
+---
 
-Distance Filtering: Finds candidate vertices near query points within a maximum walking distance.
+## Features
 
-Graph Visualization: Draws the entire graph and highlights shortest paths with distinct colors using Windows Forms.
+- **Graph Data Structure**  
+  Uses arrays and adjacency lists to represent vertices (nodes) and edges of a weighted, undirected graph.
 
-Performance Monitoring: Measures time taken for loading data and running queries using Stopwatch.
+- **Shortest Path Algorithm**  
+  Implements Dijkstra's algorithm with a priority queue for efficient shortest path computation.
 
-User Interaction: Console menu for selecting map files, entering queries, and choosing visualization options.
+- **Multi-Query Support**  
+  Handles multiple route queries with start and end coordinates, while honoring walking distance constraints.
 
-Data Structures
-vertex: Represents a graph node with ID and coordinates (x, y).
+- **Distance Filtering**  
+  Narrows candidate vertices to those within a maximum walking distance from the given coordinates, reducing search space.
 
-node: Represents an edge's neighbor with an ID, weight, distance, and tracking fields for shortest path computation.
+- **Graph Visualization**  
+  Renders the map graph and highlights computed shortest paths using Windows Forms with distinct colors.
 
-inp: Stores query input with start/end coordinates and a maximum walking distance radius.
+- **Performance Monitoring**  
+  Measures and displays the time taken to load maps and compute queries using `Stopwatch`.
 
-Algorithmic Details
-Dijkstra's Algorithm:
+- **User Interaction**  
+  Console-based menu for selecting datasets, entering queries, and choosing visualization modes.
 
-Time Complexity: O(E log V) where E is edges, V is vertices.
+---
 
-Uses a min-priority queue implemented via PriorityQueue<int, double>.
+## Data Structures
 
-Searches shortest path among candidate vertices near start/end query points.
+- **`vertex`**  
+  Represents a graph node with ID and 2D coordinates (x, y).
 
-Candidate Filtering:
+- **`node`**  
+  Represents an edge's neighbor, storing ID, weight, distance, and metadata for path computation.
 
-Finds vertices within a given radius around query start/end points for realistic walking constraints.
+- **`inp`**  
+  Stores query inputs including start/end coordinates and the walking distance radius.
 
-Reduces search space to nearby nodes, improving efficiency.
+---
 
-File Structure & Input
-Map Files (map1.txt ... NAMap.txt):
+## Algorithmic Details
 
-Contain vertex data (ID, x, y) followed by edges (two vertex IDs, length, speed).
+### Dijkstra's Algorithm
+- **Time Complexity:** O(E log V)  
+- Uses `PriorityQueue<int, double>` to process nodes by minimum cost.
+- Operates on filtered vertices near the query start and end to reduce computation.
 
-Query Files (queries1.txt ... NAQueries.txt):
+### Candidate Filtering
+- Identifies candidate nodes within a user-defined radius using squared Euclidean distance.
+- Optimizes performance by avoiding unnecessary computation over distant nodes.
 
-Contain queries with start and end coordinates and walking distance constraints.
+---
 
-Usage Instructions
-Run the application.
+## File Structure & Input
 
-Choose a map dataset by entering a number from the console menu.
+- **Map Files (e.g., `map1.txt`, `NAMap.txt`)**  
+  Contain:
+  - Vertex definitions: `id x y`
+  - Edge definitions: `vertex1_id vertex2_id length speed`
 
-For options 1-10, queries are read automatically from predefined files.
+- **Query Files (e.g., `queries1.txt`, `NAQueries.txt`)**  
+  Contain:
+  - Queries with: `start_x start_y end_x end_y max_walking_distance`
 
-For option 11, enter custom query details (start_x start_y end_x end_y max_walking_distance_meters).
+---
 
-The application computes shortest paths considering walking distance, travel time, and visualizes the results.
+## Usage Instructions
 
-Output:
+1. Run the application.
+2. Choose a map dataset by selecting a number in the console menu:
+   - Options 1–10: Load predefined map and query files.
+   - Option 11: Enter custom query manually:
+     ```
+     start_x start_y end_x end_y max_walking_distance_meters
+     ```
+3. The program will:
+   - Load the selected map.
+   - Process shortest path queries with walking constraints.
+   - Output results to both the console and a visual window.
 
-Shortest path nodes printed to Temp.txt.
+### Output
 
-Travel time, total distance, walking distance printed alongside paths.
+- **Text Output:**
+  - Shortest path node IDs written to `Temp.txt`
+  - Displays total distance, walking distance, and estimated travel time
 
-Visualization window displays the map graph and highlights computed paths with different colors.
+- **Graphical Output:**
+  - Map graph displayed using Windows Forms
+  - Shortest paths highlighted in distinct colors for clarity
 
-Dependencies
-.NET Framework (version compatible with WinForms and PriorityQueue)
+---
 
-Uses standard libraries:
+## Dependencies
 
-System.Windows.Forms
+- **.NET Framework** (compatible with WinForms and PriorityQueue)
+- **Namespaces Used:**
+  - `System.Windows.Forms`
+  - `System.Drawing`
+  - `System.Collections.Generic`
+  - `System.Diagnostics`
+  - `System.Runtime.InteropServices`
 
-System.Drawing
+---
 
-System.Collections.Generic
+## Code Highlights
 
-System.Diagnostics
+- Efficient graph storage using adjacency lists
+- Walking radius filtering with Euclidean distance squared optimization
+- Interactive and user-friendly console menu
+- Real-time rendering of map and path with scaling to fit window size
+- Clean use of `Graphics` and `PictureBox` for rendering
 
-System.Runtime.InteropServices (for console allocation)
+---
 
-Code Highlights
-Efficient adjacency list storage for edges.
+## Disclaimer
 
-Custom vertex filtering using Euclidean distance squared for optimization.
-
-Interactive console menu with input validation.
-
-Graphical rendering scales points to window size and draws paths distinctly.
-
-Uses Windows Forms PictureBox and Graphics for smooth drawing.
-
+This project was built to simulate and visualize real-world routing using fundamental algorithms and Windows Forms. It serves as a demonstration of pathfinding, spatial filtering, and simple graphical rendering within a C# WinForms environment.
